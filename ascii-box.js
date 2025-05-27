@@ -1,8 +1,7 @@
 const contentLines = [
-  "Welcome to my site.",
-  "This is where I log experiments, SQL scripts, and projects.",
-  "",
-  "Stay tuned for more content below."
+	"Welcome to my site.",
+	"((_)|||||||D~~~",
+	"<3"
 ];
 
 const boxWidth = 80;
