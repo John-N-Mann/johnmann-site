@@ -1,5 +1,3 @@
-// terminal.js
-
 const terminal = document.getElementById("terminal");
 
 function printLine(text = "", delay = 0) {

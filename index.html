@@ -16,10 +16,36 @@
       justify-content: flex-start;
       height: 100vh;
     }
+
     .site-name {
       margin: 20px 0 10px;
       font-size: 1.5em;
     }
+
     .site-name a {
       color: #d7d77d;
       text-decoration: none;
+    }
+
+    .terminal-container {
+      width: 80ch;
+      height: 50em;
+      background-color: #000;
+      border: 2px solid #444;
+      padding: 1em;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      line-height: 1.2em;
+    }
+  </style>
+</head>
+<body>
+  <div class="site-name">
+    <a href="/">johnmann.xyz</a>
+  </div>
+
+  <div class="terminal-container" id="terminal"></div>
+
+  <script src="terminal.js"></script>
+</body>
+</html>
