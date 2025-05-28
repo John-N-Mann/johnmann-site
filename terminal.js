@@ -122,7 +122,7 @@ function handleCommand(input) {
       printLine("Available commands: help, about, clear");
       break;
     case "about":
-      printLine("This is my site where I'm building up my projects. Welcome!");
+      printLine("Welcome to the site. There isn't much yet. I'll be putting my projects here.");
       break;
     case "clear":
       terminal.innerHTML = "";
