@@ -5,7 +5,7 @@
   <title>johnmann.xyz</title>
   <style>
     body {
-      background-color: #333;
+      background-color: #111;
       color: #d7d77d;
       font-family: monospace, "Courier New", Courier;
       margin: 0;
@@ -16,22 +16,24 @@
       justify-content: flex-start;
       height: 100vh;
     }
-    a {
-      color: #d7d77d;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
     .site-name {
       margin: 20px 0 10px;
       font-size: 1.5em;
     }
-    .ascii-box {
+    .site-name a {
+      color: #d7d77d;
+      text-decoration: none;
+    }
+    .terminal-container {
       width: 80ch;
       height: 50em;
-      white-space: pre;
-      font-family: monospace;
+      background-color: #000;
+      border: 2px solid #444;
+      padding: 1em;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      line-height: 1.2em;
+      box-shadow: 0 0 20px #0f0;
     }
   </style>
 </head>
@@ -40,9 +42,8 @@
     <a href="/">johnmann.xyz</a>
   </div>
 
-  <div class="ascii-box" id="ascii-box"></div>
+  <div class="terminal-container" id="terminal"></div>
 
-  <script src="ascii-box.js"></script>
-
+  <script src="terminal.js"></script>
 </body>
 </html>
