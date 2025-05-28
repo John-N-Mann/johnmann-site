@@ -1,10 +1,28 @@
+// terminal.js
+
 const terminal = document.getElementById("terminal");
+let currentInput = "";
+let promptLine = document.createElement("div");
+let promptInitialized = false;
+let commandHistory = [];
+let historyIndex = -1;
 
 function printLine(text = "", delay = 0) {
   setTimeout(() => {
-    terminal.textContent += text + "\n";
+    const line = document.createElement("div");
+    line.textContent = "> " + text;
+    if (promptInitialized && terminal.contains(promptLine)) {
+      terminal.insertBefore(line, promptLine);
+    } else {
+      terminal.appendChild(line);
+    }
     terminal.scrollTop = terminal.scrollHeight;
   }, delay);
+}
+
+function updatePrompt() {
+  promptLine.innerHTML = `&gt; ${currentInput}<span class="cursor">_</span>`;
+  terminal.scrollTop = terminal.scrollHeight;
 }
 
 function bootTerminal() {
@@ -12,9 +30,14 @@ function bootTerminal() {
   printLine("projects  media  about.txt  logbook.txt", 300);
   printLine("", 600);
   printLine("john@johnmann.xyz:~$ cat about.txt", 900);
-  printLine("Hi, I’m John. I break things, fix data, and sometimes build weird stuff.", 1200);
+  printLine("Hi, I’m John. Type help for more commands. ", 1200);
   printLine("", 1500);
-  printLine("john@johnmann.xyz:~$", 1800);
+  setTimeout(() => {
+    terminal.appendChild(promptLine);
+    promptInitialized = true;
+    updatePrompt();
+    initInput();
+  }, 1800);
 }
 
 function startScanlines() {
@@ -39,6 +62,14 @@ function startScanlines() {
     .terminal-container {
       position: relative;
     }
+    .cursor {
+      display: inline-block;
+      width: 1ch;
+      animation: blink 1s steps(2, start) infinite;
+    }
+    @keyframes blink {
+      to { visibility: hidden; }
+    }
   `;
   document.head.appendChild(style);
 }
@@ -50,22 +81,38 @@ function startFlicker() {
 }
 
 function initInput() {
-  let currentInput = "";
-  printLine("john@johnmann.xyz:~$ ", 2100);
+  currentInput = "";
+  terminal.appendChild(promptLine);
+  updatePrompt();
 
   document.addEventListener("keydown", (e) => {
-    if (e.key.length === 1 && !e.ctrlKey) {
+    if (e.key === "ArrowUp") {
+      if (commandHistory.length > 0 && historyIndex < commandHistory.length - 1) {
+        historyIndex++;
+        currentInput = commandHistory[historyIndex];
+      }
+    } else if (e.key === "ArrowDown") {
+      if (historyIndex > 0) {
+        historyIndex--;
+        currentInput = commandHistory[historyIndex];
+      } else {
+        historyIndex = -1;
+        currentInput = "";
+      }
+    } else if (e.key.length === 1 && !e.ctrlKey && !e.metaKey) {
       currentInput += e.key;
-      terminal.textContent += e.key;
     } else if (e.key === "Backspace") {
       currentInput = currentInput.slice(0, -1);
-      terminal.textContent = terminal.textContent.slice(0, -1);
     } else if (e.key === "Enter") {
-      terminal.textContent += "\n";
+      terminal.removeChild(promptLine);
+      printLine(currentInput);
       handleCommand(currentInput.trim());
+      commandHistory.unshift(currentInput);
+      historyIndex = -1;
       currentInput = "";
+      terminal.appendChild(promptLine);
     }
-    terminal.scrollTop = terminal.scrollHeight;
+    updatePrompt();
   });
 }
 
@@ -75,15 +122,15 @@ function handleCommand(input) {
       printLine("Available commands: help, about, clear");
       break;
     case "about":
-      printLine("I'm John. I write SQL, fix weird data, and build retro junk.");
+      printLine("This is my site where I'm building up my projects. Welcome!");
       break;
     case "clear":
-      terminal.textContent = "";
+      terminal.innerHTML = "";
+      terminal.appendChild(promptLine);
       break;
     default:
       printLine(`Command not found: ${input}`);
   }
-  printLine("john@johnmann.xyz:~$ ");
 }
 
 // Boot
@@ -91,5 +138,5 @@ window.onload = () => {
   bootTerminal();
   startScanlines();
   startFlicker();
-  initInput();
+  applyCRTEffects();
 };
