@@ -119,7 +119,7 @@ function initInput() {
 function handleCommand(input) {
   switch (input.toLowerCase()) {
     case "help":
-      printLine("Available commands: help, about, clear");
+      printLine("Available commands: help, about, clear, snake");
       break;
     case "about":
       printLine("Welcome to the site. There isn't much yet. I'll be putting my projects here.");
@@ -128,6 +128,10 @@ function handleCommand(input) {
       terminal.innerHTML = "";
       terminal.appendChild(promptLine);
       break;
+	case "snake":
+	  printLine("Launching SNAKE...");
+	  window.open("/projects/snake/snake.html", "_blank");
+	  break;
     default:
       printLine(`Command not found: ${input}`);
   }
