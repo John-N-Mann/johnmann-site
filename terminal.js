@@ -26,12 +26,13 @@ function updatePrompt() {
 }
 
 function bootTerminal() {
-  printLine("john@johnmann.xyz:~$ ls");
-  printLine("projects  media  about.txt  logbook.txt", 300);
-  printLine("", 600);
-  printLine("john@johnmann.xyz:~$ cat about.txt", 900);
-  printLine("Hi, I’m John. Type help for more commands. ", 1200);
-  printLine("", 1500);
+  printLine("LOADING.");
+  printLine("LOADING..", 300);
+  printLine("LOADING...", 700);
+  printLine("LOADING....", 1100);
+  printLine("LOADING.....", 1500);
+  printLine("", 1700);
+  printLine("Welcome. Type help for more commands.", 2000);
   setTimeout(() => {
     terminal.appendChild(promptLine);
     promptInitialized = true;
