@@ -120,7 +120,7 @@ function initInput() {
 function handleCommand(input) {
   switch (input.toLowerCase()) {
     case "help":
-      printLine("Available commands: help, about, clear, snake");
+      printLine("Available commands: help, about, clear, snake, art");
       break;
     case "about":
       printLine("Welcome to the site. There isn't much yet. I'll be putting my projects here.");
@@ -132,6 +132,10 @@ function handleCommand(input) {
 	case "snake":
 	  printLine("Launching SNAKE...");
 	  window.open("/projects/snake/snake.html", "_blank");
+	  break;
+	case "art":
+	  printLine("Launching ART...");
+	  window.open("/projects/art/art.html", "_blank");
 	  break;
     default:
       printLine(`Command not found: ${input}`);
